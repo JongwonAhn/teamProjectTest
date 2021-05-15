@@ -1,6 +1,6 @@
 package com.osk.team.domain;
 
-public class photo {
+public class Photo {
 
   private String photo;//게시판 제목
   private int bno;//사진

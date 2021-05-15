@@ -20,6 +20,11 @@
 
 
   </resultMap>
+  
+  <!-- AutoIncrement 값 출력 을 위해 만듬. -->
+  <select id="boardbno" resultMap="boardMap" >
+    select max(bno) bno from board;
+  </select>
 
   <insert id="insert" parameterType="board">
     insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
@@ -27,7 +32,7 @@
   </insert>
   
   <insert id="insertphoto" parameterType="photo">
-    insert into b_photo(photo, bno )
+    insert into b_photo(bphoto, bno )
     values (#{photo}, #{bno})
   </insert>
 

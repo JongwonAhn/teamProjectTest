@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.osk.team.dao.BoardDao;
 import com.osk.team.domain.Board;
+import com.osk.team.domain.Photo;
 import com.osk.team.service.BoardService;
 
 public class DefaultBoardService implements BoardService {
@@ -19,6 +20,20 @@ public class DefaultBoardService implements BoardService {
   @Override
   public int add(Board board) throws Exception {
     return boardDao.insert(board);
+  }
+
+  @Override
+  public int addWithPhoto(Photo photo) throws Exception {
+    return boardDao.insertphoto(photo);
+  }
+
+  //  @Override
+  //  public int getBoardBno() throws Exception {
+  //    return boardDao.boardbno();
+  //  }
+  @Override
+  public Board getBoardBno() throws Exception {
+    return boardDao.boardbno();
   }
 
   @Override

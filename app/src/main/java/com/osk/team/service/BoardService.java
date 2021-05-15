@@ -1,21 +1,25 @@
 package com.osk.team.service;
 
-import com.osk.team.domain.Board;
-import com.osk.team.domain.Club;
-
 import java.util.List;
+
+import com.osk.team.domain.Board;
+import com.osk.team.domain.Photo;
 
 public interface BoardService {
 
-    int add(Board board) throws Exception;
+  int add(Board board) throws Exception;
 
-    List<Board> list() throws Exception;
+  int addWithPhoto(Photo photo) throws Exception;
 
-    Board get(int no) throws Exception;
+  Board getBoardBno() throws Exception; // 오토 인크리먼츠값을 꺼내기 위해 만듬.
 
-    int update(Board board) throws Exception;
+  List<Board> list() throws Exception;
 
-    int delete(int no) throws Exception;
+  Board get(int no) throws Exception;
 
-    List<Board> search(String keyword) throws Exception;
+  int update(Board board) throws Exception;
+
+  int delete(int no) throws Exception;
+
+  List<Board> search(String keyword) throws Exception;
 }
