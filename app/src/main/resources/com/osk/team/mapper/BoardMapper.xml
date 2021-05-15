@@ -25,6 +25,11 @@
     insert into board(btitle, bcontent, bcount, bdate ,mno, b_tno )
     values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
   </insert>
+  
+  <insert id="insertphoto" parameterType="photo">
+    insert into b_photo(photo, bno )
+    values (#{photo}, #{bno})
+  </insert>
 
   <select id="findByKeyword" resultMap="boardMap" parameterType="string">
     select

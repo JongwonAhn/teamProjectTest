@@ -1,23 +1,25 @@
 package com.osk.team.dao;
 
-import com.osk.team.domain.Board;
-
 import java.util.List;
+
+import com.osk.team.domain.Board;
 
 
 public interface BoardDao {
 
-        int insert(Board board) throws Exception;
+  int insert(Board board) throws Exception;
 
-        List<Board> findByKeyword(String keyword) throws Exception;
+  int insert(Photo photo) throws Exception;
 
-        Board findByNo(int no) throws Exception;
+  List<Board> findByKeyword(String keyword) throws Exception;
 
-        int update(Board board) throws Exception;
+  Board findByNo(int no) throws Exception;
 
-        int delete(int bno) throws Exception;
+  int update(Board board) throws Exception;
 
-        int updateViewCount(int bno) throws Exception;
+  int delete(int bno) throws Exception;
+
+  int updateViewCount(int bno) throws Exception;
 }
 
 
