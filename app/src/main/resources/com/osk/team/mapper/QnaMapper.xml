@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.osk.team.dao.QnaDao">
+
+  <resultMap id="qnaMap" type="qna">
+    <id column="m_qno" property="no"/>
+    <result column="m_qtitle" property="title"/>
+    <result column="m_qdate" property="registeredDate"/>
+    <result column="m_qcontent" property="content"/>
+    <result column="a_qcontent" property="answer"/>
+    <result column="a_qdate" property="answerDate"/>
+    <association property="writer" javaType="member">
+       <id column="writer_no" property="no"/>
+       <result column="writer_name" property="name"/>
+
+    </association>
+
+  </resultMap>
+ <!--
+  <insert id="insert" parameterType="qna">
+    insert into qna(title, content, writer)
+    values (#{title}, #{content}, #{writer.no})
+  </insert> 
+-->
+  
+  <select id="listAll" resultMap="qnaMap" parameterType="int">
+    select
+      q.m_qno,
+      q.m_qtitle,   
+      q.m_qdate,
+      m.mname as writer_name
+    from m_qna q
+    inner join member m on m.mno=q.m_qno
+  </select>
+  
+  <select id="findByKeyword" resultMap="qnaMap" parameterType="int">
+    select
+      q.m_qno,
+      q.m_qtitle,   
+      q.m_qdate,
+      m.mname as writer_name
+    from m_qna q
+    inner join member m on m.mno=q.m_qno
+  </select>
+
+<!-- 
+  <select id="findByNo" resultMap="qnaMap" parameterType="int">
+    select
+      q.m_qno,
+      q.m_qdate,
+      q.m_qtitle,
+      q.m_qcontent,
+      q.a_qcontent,
+      q.a_qdate,
+      m.mno as writer_no,
+      m.mname as writer_name
+    from m_qna q
+    inner join member m on m.mno=q.m_qno
+    where q.m_qno = #{value}
+  </select>
+
+  <update id="update" parameterType="qna">
+    update m_qna set 
+        m_qtitle = #{m_qtitle},
+        m_qtitle = #{m_qtitle}
+    where m_qno = #{no}
+  </update>
+
+  <delete id="delete" parameterType="int">
+    delete from m_qna
+    where m_qno = #{value}
+  </delete>
+    -->
+
+</mapper>

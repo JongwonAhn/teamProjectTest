@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.osk.team.dao.MemberDao">
+
+  <resultMap id="memberMap" type="member">
+    <id column="mno" property="no"/>
+    <result column="mname" property="name"/>
+    <result column="memail" property="email"/>
+    <result column="mpwd" property="password"/>
+    <result column="mphoto" property="photo"/>
+    <result column="mbirth" property="birth"/>
+    <result column="mtel" property="tel"/>
+    <result column="mgender" property="gender"/>
+    <result column="mstatus" property="status"/>
+    <result column="mpow" property="power"/>
+    <result column="mcnt" property="count"/>
+  </resultMap>
+
+  <!--  <insert id="insert" parameterType="member">
+    insert into member(name, password, email, birth, tel, gender, photo, status, power, count)
+    values (#{mname}, password(#{mpwd}), #{memail}, #{mbirth}, #{mtel}, #{mgender}, #{mphoto}, #{mstatus}, #{mpow}, #{mcnt})
+  </insert> -->
+
+  <select id="findByKeyword" resultMap="memberMap" parameterType="string">
+    select
+    mno,
+    mname,
+    memail,
+    mpwd,
+    mphoto,
+    mbirth,
+    mtel,
+    mgender,
+    mstatus,
+    mpow,
+    mcnt
+    from member
+    <where>
+      <if test="keyword != null and keyword != ''">
+        mname like concat('%', #{keyword}, '%')
+        or memail like concat('%', #{keyword}, '%')
+        or mtel like concat('%', #{keyword}, '%')
+      </if>
+    </where>
+    order by mname asc
+  </select>
+
+  <!--<select id="findByMember" resultMap="memberMap" parameterType="int">
+    select
+      mno,
+      mname,
+      memail,
+      mpwd,
+      mphoto,
+      mbirth,
+      mtel,
+      mgender,
+      mstatus,
+      mpow
+      mcnt
+    from member
+    where mno = #{value}
+  </select>-->
+
+  <!--<update id="update" parameterType="member">
+    update member
+    set mphoto = #{mphoto},
+        mpwd = password(#{mpwd})
+    where mno = #{no}
+  </update>-->
+
+
+  <!--<delete id="delete" parameterType="int">
+    delete mno
+    from member
+    where mno = #{value}
+  </delete>-->
+
+  <select id="findByEmailPassword" resultMap="memberMap" parameterType="map">
+   select
+     mno,
+     mname,
+     memail,
+     mpwd,
+     mphoto,
+     mbirth,
+     mtel,
+     mgender,
+     mstatus,
+     mpow
+     mcnt
+   from member
+   where memail = #{email} and mpwd = password(#{password})
+ </select>
+
+</mapper>

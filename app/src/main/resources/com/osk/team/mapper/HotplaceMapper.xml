@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.osk.team.dao.HotplaceDao">
+
+  <resultMap id="hotplaceMap" type="hotplace">
+    <id column="hno" property="no"/>
+    <result column="htitle" property="title"/>
+    <result column="hcontent" property="content"/>
+    <result column="hdate" property="date"/>
+    <result column="hcount" property="count"/>
+    <result column="haddr" property="address"/>
+    <result column="hphoto" property="photo"/>
+
+    <!--    <association property="mname" javaType="member">-->
+    <!--      <id column="writer_no" property="mno"/>-->
+    <!--      <result column="writer_name" property="mname"/>-->
+    <!--    </association>-->
+
+  </resultMap>
+
+  <select id="findByKeyword" resultMap="hotplaceMap" parameterType="String">
+    select
+      h.hno,
+      h.htitle,
+      h.hcontent,
+      h.hdate,
+      h.hcount,
+      h.haddr,
+      h.hphoto
+    from hotplace h
+    order by h.hno desc
+  </select>
+
+</mapper>
+
+
+
+
+
