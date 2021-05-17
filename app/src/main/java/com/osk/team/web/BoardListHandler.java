@@ -18,7 +18,7 @@ import com.osk.team.service.BoardService;
 @SuppressWarnings("serial")
 @WebServlet("/board/list")
 public class BoardListHandler extends HttpServlet {
-
+  //*************************이 소스는 board관련 테스트소스 입니다
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -28,49 +28,22 @@ public class BoardListHandler extends HttpServlet {
     response.setContentType("text/html;charset=UTF-8");
     PrintWriter out = response.getWriter();
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>게시글 목록</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>게시글 목록</h1>");
-
-    out.println("<p><a href='add'>새 글</a></p>");
-
+    // JSP가 게시글 목록을 출력할 때 사용할 데이터를 준비한다.  
     try {
-      List<Board> boards = boardService.list();
-
-      out.println("<table border='1'>");
-      out.println("<thead>");
-      out.println("<tr>");
-      out.println("<th>번호</th> <th>제목</th> <th>작성자</th> <th>등록일</th> <th>조회수</th>");
-      out.println("</tr>");
-      out.println("</thead>");
-      out.println("<tbody>");
-
-      for (Board b : boards) {
-        out.printf("<tr>"
-            + " <td>%d</td>"
-            + " <td><a href='detail?no=%1$s'>%s</a></td>"
-            + " <td>%s</td>"
-            + " <td>%s</td>"
-            + " <td>%d</td> </tr>\n",
-
-            b.getNo(),
-            b.getTitle(),
-            b.getWriter().getName(),
-            b.getRegisteredDate(),
-            b.getViewCount()
-            );
+      String keyword = request.getParameter("keyword");
+      List<Board> boards = null;
+      if (keyword != null && keyword.length() > 0) {
+        boards = boardService.search(keyword);
+      } else {
+        boards = boardService.list();
       }
-      out.println("</tbody>");
-      out.println("</table>");
 
-      out.println("<form action='search' method='get'>");
-      out.println("<input type='text' name='keyword'>");
-      out.println("<button>검색</button>");
-      out.println("</form>");
+      // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
+      request.setAttribute("list", boards);
+
+      // 목록 출력을 JSP에게 맡긴다.
+      response.setContentType("text/html;charset=UTF-8");
+      request.getRequestDispatcher("/jsp/board/list.jsp").include(request, response);
 
     } catch (Exception e) {
       // 상세 오류 내용을 StringWriter로 출력한다.

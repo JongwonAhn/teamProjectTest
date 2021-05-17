@@ -116,20 +116,18 @@ public class BoardAddHandler extends HttpServlet {
 
         // 썸네일 이미지 생성
         Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(30, 30)
+        .size(450, 450)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
-            return name + "_30x30";
+            return name + "_450x450";
           }
         });
       }
       //사진처리----
     }
-
-
 
     HttpServletRequest httpRequest = request;
     Member loginUser = (Member) httpRequest.getSession().getAttribute("loginUser");
