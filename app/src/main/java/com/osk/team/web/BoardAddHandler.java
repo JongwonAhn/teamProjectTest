@@ -97,7 +97,7 @@ public class BoardAddHandler extends HttpServlet {
     ///-----사진처리
     if(request.getPart("photo1").getSize()>0){
       partList.add(request.getPart("photo1")); // 사진값을 리스트에 순서대로 담아둠.
-      System.out.println("1111111111111"+request.getPart("photo1"));
+      System.out.println("1111111111111"+request.getPart("photo1")); //출력테스트
     }
     if(request.getPart("photo2").getSize()>0){
       partList.add(request.getPart("photo2"));
