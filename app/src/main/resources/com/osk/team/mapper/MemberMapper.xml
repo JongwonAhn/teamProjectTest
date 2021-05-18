@@ -90,7 +90,7 @@
      mtel,
      mgender,
      mstatus,
-     mpow
+     mpow,
      mcnt
    from member
    where memail = #{email} and mpwd = password(#{password})

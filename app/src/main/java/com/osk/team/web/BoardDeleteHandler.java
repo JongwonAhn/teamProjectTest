@@ -41,13 +41,11 @@ public class BoardDeleteHandler extends HttpServlet {
       }
 
       Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      //            if (loginUser.getNo() == 0) {
-      if (oldBoard.getWriter().getNo() != loginUser.getNo()) {
+
+      if (oldBoard.getWriter().getNo() != loginUser.getNo() && loginUser.getPower() == 0) {
         throw new Exception("삭제 권한이 없습니다!");
       }
-      //            } else if (loginUser.getPower() == 1) {
-      //                out.print("관리자");
-      //            }
+
 
       boardService.delete(no);
 

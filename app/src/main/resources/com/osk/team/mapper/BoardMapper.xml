@@ -45,6 +45,7 @@
     b.bcount,
     m.mno as writer_no,
     m.mname as writer_name,
+    m.mpow,
     t.b_tno
     from board b
     inner join member m on m.mno=b.mno

@@ -27,11 +27,13 @@ if (request.getAttribute("board") != null) {
 <tr><th>등록일</th> <td>${board.registeredDate}</td></tr>
 <tr><th>조회수</th> <td>${board.viewCount}</td></tr>
 </tbody>
-<jsp:useBean id="loginUser" class="com.osk.team.domain.Member" scope="session"/>
+<jsp:useBean id="loginUser" type="com.osk.team.domain.Member"  scope="session"/>
+ 
 <% 
 Board board = (Board) request.getAttribute("board"); 
-if (loginUser != null && board.getWriter().getNo() == loginUser.getNo()) {
+if ( (loginUser.getPower() == 1) || (loginUser != null && board.getWriter().getNo() == loginUser.getNo()) ) {
 %>
+
 <tfoot>
 <tr>
   <td colspan='2'>
@@ -39,7 +41,10 @@ if (loginUser != null && board.getWriter().getNo() == loginUser.getNo()) {
   </td>
 </tr>
 </tfoot>
-<%}%>
+<%
+}
+%>
+
 </table>
 </form>
 <%} else {%>
