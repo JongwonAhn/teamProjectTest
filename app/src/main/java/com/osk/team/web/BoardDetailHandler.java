@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.osk.team.domain.Board;
-import com.osk.team.domain.Member;
 import com.osk.team.service.BoardService;
 
 
@@ -33,48 +32,53 @@ public class BoardDetailHandler extends HttpServlet {
 
     int no = Integer.parseInt(request.getParameter("no"));
 
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>게시글 상세</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>게시글 상세보기</h1>");
+    //    out.println("<!DOCTYPE html>");
+    //    out.println("<html>");
+    //    out.println("<head>");
+    //    out.println("<title>게시글 상세</title>");
+    //    out.println("</head>");
+    //    out.println("<body>");
+    //    out.println("<h1>게시글 상세보기</h1>");
 
     try {
-      Board b = boardService.get(no);
-      if (b == null) {
-        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
-        out.println("</body>");
-        out.println("</html>");
-        return;
-      }
-      out.println("<form action='update' method='post'>");
-      out.println("<table border='1'>");
-      out.println("<tbody>");
-      out.printf("<tr><th>번호</th>"
-          + " <td><input type='text' name='no' value='%d' readonly></td></tr>\n", b.getNo());
-      out.printf("<tr><th>제목</th>"
-          + " <td><input name='title' type='text' value='%s'></td></tr>\n", b.getTitle());
-      out.printf("<tr><th>내용</th>"
-          + " <td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n", b.getContent());
-      out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", b.getWriter().getName());
-      out.printf("<tr><th>등록일</th> <td>%s</td></tr>\n", b.getRegisteredDate());
-      out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", b.getViewCount());
-      out.println("</tbody>");
+      Board board = boardService.get(no);
+      request.setAttribute("board", board);
 
-      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      if (loginUser != null && b.getWriter().getNo() == loginUser.getNo()) {
-        out.println("<tfoot>");
-        out.println("<tr><td colspan='2'>");
-        out.println("<input type='submit' value='변경'> "
-            + "<a href='delete?no=" + b.getNo() + "'>삭제</a> ");
-        out.println("</td></tr>");
-        out.println("</tfoot>");
-      }
+      response.setContentType("text/html;charset=UTF-8");
+      request.getRequestDispatcher("/jsp/board/detail.jsp").include(request, response); //jsp때문에추가
 
-      out.println("</table>");
-      out.println("</form>");
+      //      if (b == null) {
+      //        out.println("<p>해당 번호의 게시글이 없습니다.</p>");
+      //        out.println("</body>");
+      //        out.println("</html>");
+      //        return;
+      //      }
+      //      out.println("<form action='update' method='post'>");
+      //      out.println("<table border='1'>");
+      //      out.println("<tbody>");
+      //      out.printf("<tr><th>번호</th>"
+      //          + " <td><input type='text' name='no' value='%d' readonly></td></tr>\n", b.getNo());
+      //      out.printf("<tr><th>제목</th>"
+      //          + " <td><input name='title' type='text' value='%s'></td></tr>\n", b.getTitle());
+      //      out.printf("<tr><th>내용</th>"
+      //          + " <td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n", b.getContent());
+      //      out.printf("<tr><th>작성자</th> <td>%s</td></tr>\n", b.getWriter().getName());
+      //      out.printf("<tr><th>등록일</th> <td>%s</td></tr>\n", b.getRegisteredDate());
+      //      out.printf("<tr><th>조회수</th> <td>%s</td></tr>\n", b.getViewCount());
+      //      out.println("</tbody>");
+      //
+      //      Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+      //      if (loginUser != null && b.getWriter().getNo() == loginUser.getNo()) {
+      //        out.println("<tfoot>");
+      //        out.println("<tr><td colspan='2'>");
+      //        out.println("<input type='submit' value='변경'> "
+      //            + "<a href='delete?no=" + b.getNo() + "'>삭제</a> ");
+      //        out.println("</td></tr>");
+      //        out.println("</tfoot>");
+      //      }
+      //
+      //      out.println("</table>");
+      //      out.println("</form>");
 
 
     } catch (Exception e) {
@@ -83,10 +87,10 @@ public class BoardDetailHandler extends HttpServlet {
       e.printStackTrace(printWriter);
       out.printf("<pre>%s</pre>\n", strWriter.toString());
     }
-    out.println("<p><a href='list'>목록</a></p>");
+    //    out.println("<p><a href='list'>목록</a></p>");
 
-    out.println("</body>");
-    out.println("</html>");
+    //    out.println("</body>");
+    //    out.println("</html>");
   }
 }
 

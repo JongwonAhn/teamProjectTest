@@ -69,11 +69,14 @@
       b.bcount,
       m.mno as writer_no,
       m.mname as writer_name,
-      t.b_tno
+      t.b_tno,
+      p.b_pno
     from board b
            inner join member m on m.mno=b.mno
            inner join b_type t on t.b_tno=b.b_tno
+           left outer join b_photo p on p.bno=b.bno
     where b.bno = #{value}
+    order by bno desc
   </select>
 
   <update id="updateViewCount" parameterType="int">
