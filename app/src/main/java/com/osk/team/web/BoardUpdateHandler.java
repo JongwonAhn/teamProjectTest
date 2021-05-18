@@ -43,7 +43,7 @@ public class BoardUpdateHandler extends HttpServlet {
       }
 
       Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-      if (oldBoard.getWriter().getNo() != loginUser.getNo()) {
+      if (oldBoard.getWriter().getNo() != loginUser.getNo() && loginUser.getPower() == 0) {
         throw new Exception("변경 권한이 없습니다!");
       }
 

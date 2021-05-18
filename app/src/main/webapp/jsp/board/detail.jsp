@@ -1,12 +1,9 @@
-<%@page import="java.util.List"%>
-<%@page import="com.osk.team.domain.Photo"%>
-<%@page import="com.osk.team.domain.Member"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.osk.team.domain.Board"%>
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +11,9 @@
 </head>
 <body>
 <h1>게시글 상세보기1</h1>
-<% 
-if (request.getAttribute("board") != null) {
-%>
+
+<c:if test="${not empty board}">
+
 <form action='update' method='post'>
 <table border='1'>
 <tbody>
@@ -27,12 +24,8 @@ if (request.getAttribute("board") != null) {
 <tr><th>등록일</th> <td>${board.registeredDate}</td></tr>
 <tr><th>조회수</th> <td>${board.viewCount}</td></tr>
 </tbody>
-<jsp:useBean id="loginUser" type="com.osk.team.domain.Member"  scope="session"/>
- 
-<% 
-Board board = (Board) request.getAttribute("board"); 
-if ( (loginUser.getPower() == 1) || (loginUser != null && board.getWriter().getNo() == loginUser.getNo()) ) {
-%>
+
+<c:if test="${not empty loginUser and loginUser.no == board.writer.no or loginUser.power == 1 }">
 
 <tfoot>
 <tr>
@@ -41,15 +34,11 @@ if ( (loginUser.getPower() == 1) || (loginUser != null && board.getWriter().getN
   </td>
 </tr>
 </tfoot>
-<%
-}
-%>
+</c:if>
 
 </table>
 </form>
-<%} else {%>
-<p>해당 번호의 게시글이 없습니다.</p>
-<%}%>
+</c:if>
 
 <p><a href='list'>목록</a></p>
 </body>
