@@ -12,12 +12,21 @@
     <result column="bcontent" property="content"/>
     <result column="bcount" property="viewCount"/>
     <result column="bdate" property="registeredDate"/>
-
+    
+ <!--  <collection property="photos" ofType="photo" column="bphoto">
+    <result column="bphoto" property="photo"/>
+    </collection>  -->
+    
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
       <result column="writer_name" property="name"/>
     </association>
 
+ <collection property="photos" ofType="photo">
+      <result column="bphoto" property="photo"/>
+  </collection>
+  
+   
 
   </resultMap>
   
@@ -45,7 +54,6 @@
     b.bcount,
     m.mno as writer_no,
     m.mname as writer_name,
-    m.mpow,
     t.b_tno
     from board b
     inner join member m on m.mno=b.mno
@@ -71,7 +79,7 @@
       m.mno as writer_no,
       m.mname as writer_name,
       t.b_tno,
-      p.b_pno
+      p.bphoto
     from board b
            inner join member m on m.mno=b.mno
            inner join b_type t on t.b_tno=b.b_tno

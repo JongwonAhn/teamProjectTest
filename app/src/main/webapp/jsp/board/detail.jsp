@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" 
     contentType="text/html; charset=UTF-8"
@@ -19,6 +20,21 @@
 <tbody>
 <tr><th>번호</th> <td><input type='text' name='no' value='${board.no}' readonly></td></tr>
 <tr><th>제목</th> <td><input name='title' type='text' value='${board.title}'></td></tr>
+
+<tr><th>사진</th>
+<c:if test="${not empty board.photos}">
+<%System.out.println("11");%>
+  <c:forEach items="${board.photos}" var="p" >
+  <%System.out.println("22");%>
+  <c:set var="photo450x450Url">../upload/${p.photo}_450x450.jpg</c:set>
+   <%System.out.println("33");%>
+   <td><img src='${photo450x450Url}'><br>
+   <%System.out.println("44");%>
+   <input name='photo' type='file'></td>  
+   </c:forEach> 
+</c:if>
+</tr>
+
 <tr><th>내용</th> <td><textarea name='content' rows='10' cols='60'>${board.content}</textarea></td></tr>
 <tr><th>작성자</th> <td>${board.writer.name}</td></tr>
 <tr><th>등록일</th> <td>${board.registeredDate}</td></tr>

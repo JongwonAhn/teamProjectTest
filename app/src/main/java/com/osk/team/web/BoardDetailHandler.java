@@ -42,6 +42,8 @@ public class BoardDetailHandler extends HttpServlet {
 
     try {
       Board board = boardService.get(no);
+      System.out.println("2222222222");
+      System.out.println("사진크기 확인 "+board.getPhotos().size());
       request.setAttribute("board", board);
 
       response.setContentType("text/html;charset=UTF-8");
