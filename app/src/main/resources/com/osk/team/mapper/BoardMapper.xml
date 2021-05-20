@@ -13,10 +13,6 @@
     <result column="bcount" property="viewCount"/>
     <result column="bdate" property="registeredDate"/>
     
- <!--  <collection property="photos" ofType="photo" column="bphoto">
-    <result column="bphoto" property="photo"/>
-    </collection>  -->
-    
     <association property="writer" javaType="member">
       <id column="writer_no" property="no"/>
       <result column="writer_name" property="name"/>

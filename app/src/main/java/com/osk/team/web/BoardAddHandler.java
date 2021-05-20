@@ -60,6 +60,11 @@ public class BoardAddHandler extends HttpServlet {
     out.println("<h1>새 게시글</h1>");
     out.println("<form action='add' method='post' enctype='multipart/form-data'> ");
 
+    //    out.println("카테고리: <select name='title'>");
+    //    out.println("<option  value='1'>꿀팁</option>");
+    //    out.println("<option  value='2'>자유</option>");
+    //    out.println("<option  value='3'>장터</option> ");
+    //    out.println("</select> <br>");
     out.println("제목: <input type='text' name='title'><br>");
     out.println("내용: <textarea name='content' rows='10' cols='60'></textarea><br>");
     out.println("사진1: <input type='file' name='photo1'><br>");
@@ -117,13 +122,13 @@ public class BoardAddHandler extends HttpServlet {
 
         // 썸네일 이미지 생성
         Thumbnails.of(this.uploadDir + "/" + filename)
-        .size(450, 450)
+        .size(250, 250)
         .outputFormat("jpg")
         .crop(Positions.CENTER)
         .toFiles(new Rename() {
           @Override
           public String apply(String name, ThumbnailParameter param) {
-            return name + "_450x450";
+            return name + "_250x250";
           }
         });
       }

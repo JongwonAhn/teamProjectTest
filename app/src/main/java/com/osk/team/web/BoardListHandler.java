@@ -44,7 +44,7 @@ public class BoardListHandler extends HttpServlet {
       // 목록 출력을 JSP에게 맡긴다.
       response.setContentType("text/html;charset=UTF-8");
       request.getRequestDispatcher("/jsp/board/list.jsp").include(request, response);
-      System.out.println("11111");
+      System.out.println("222222");
     } catch (Exception e) {
       // 상세 오류 내용을 StringWriter로 출력한다.
       StringWriter strWriter = new StringWriter();

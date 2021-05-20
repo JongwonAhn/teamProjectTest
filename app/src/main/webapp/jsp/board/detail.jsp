@@ -26,11 +26,11 @@
 <%System.out.println("11");%>
   <c:forEach items="${board.photos}" var="p" >
   <%System.out.println("22");%>
-  <c:set var="photo450x450Url">../upload/${p.photo}_450x450.jpg</c:set>
+  <c:set var="photo250x250Url">../upload/${p.photo}_250x250.jpg</c:set>
    <%System.out.println("33");%>
-   <td><img src='${photo450x450Url}'><br>
+   <td><img src='${photo250x250Url}'><br></td>
    <%System.out.println("44");%>
-   <input name='photo' type='file'></td>  
+<%--    <input name='photo' type='file'></td> --%>  
    </c:forEach> 
 </c:if>
 </tr>
