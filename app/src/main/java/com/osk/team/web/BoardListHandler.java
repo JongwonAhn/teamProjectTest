@@ -37,14 +37,14 @@ public class BoardListHandler extends HttpServlet {
       } else {
         boards = boardService.list();
       }
-      System.out.println("11111");
+      //      System.out.println("11111"); // 출력 테스트
       // JSP가 사용할 수 있도록 ServletRequest 보관소에 저장한다.
       request.setAttribute("list", boards);
 
       // 목록 출력을 JSP에게 맡긴다.
       response.setContentType("text/html;charset=UTF-8");
       request.getRequestDispatcher("/jsp/board/list.jsp").include(request, response);
-      System.out.println("222222");
+      //      System.out.println("222222"); // 출력 테스트 
     } catch (Exception e) {
       // 상세 오류 내용을 StringWriter로 출력한다.
       StringWriter strWriter = new StringWriter();

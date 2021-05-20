@@ -1,11 +1,9 @@
-<%@page import="com.osk.team.domain.Board"%>
-<%@page import="java.util.List"%>
 <%@ page 
     language="java" 
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
 <html>
@@ -22,24 +20,20 @@
 </tr>
 </thead>
 <tbody>
-<jsp:useBean id="list" type="List<Board>" scope="request"></jsp:useBean>
-<% 
-for (Board b : list){
-%>
+<c:forEach items="${list}" var="b">
 <tr>
- <td><%=b.getNo()%></td>
- <td><a href='detail?no=<%=b.getNo()%>'><%=b.getTitle()%></a></td>
- <td><%=b.getWriter().getName()%></td>
- <td><%=b.getRegisteredDate()%></td>
- <td><%=b.getViewCount()%></td>
+ <td>${b.no}</td> 
+  <td><a href='detail?no=${b.no}'>${b.title}</a></td>
+  <td>${b.writer.name}</td>
+  <td>${b.registeredDate}</td>
+  <td>${b.viewCount}</td>
  </tr>
-<%
-}
-%>
+
+</c:forEach>
 </tbody>
 </table>
-<form action='search' method='get'>
-<input type='text' name='keyword'>
+<form action='list' method='get'>
+<input type='text' name='keyword' value='${param.keyword}'>
 <button>검색</button>
 </form>
 </body>

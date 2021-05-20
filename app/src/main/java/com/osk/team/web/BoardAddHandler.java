@@ -45,37 +45,9 @@ public class BoardAddHandler extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-
-
     response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<meta charset='UTF-8'>");
-    out.println("<title>새 게시글</title>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>새 게시글</h1>");
-    out.println("<form action='add' method='post' enctype='multipart/form-data'> ");
-
-    //    out.println("카테고리: <select name='title'>");
-    //    out.println("<option  value='1'>꿀팁</option>");
-    //    out.println("<option  value='2'>자유</option>");
-    //    out.println("<option  value='3'>장터</option> ");
-    //    out.println("</select> <br>");
-    out.println("제목: <input type='text' name='title'><br>");
-    out.println("내용: <textarea name='content' rows='10' cols='60'></textarea><br>");
-    out.println("사진1: <input type='file' name='photo1'><br>");
-    out.println("사진2: <input type='file' name='photo2'><br>");
-    out.println("사진3: <input type='file' name='photo3'><br>");
-    out.println("<input type='submit' value='등록'>");
-    out.println("</form>");
-    out.println("</body>");
-    out.println("</html>");
+    request.getRequestDispatcher("/jsp/board/form.jsp").include(request, response);
   }
-
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -85,8 +57,6 @@ public class BoardAddHandler extends HttpServlet {
     partList=new ArrayList<Part>(); // 초기화
     Photos=new ArrayList<Photo>();
     Board b = new Board();
-
-
 
     request.setCharacterEncoding("UTF-8");
     b.setTitle(request.getParameter("title"));
@@ -99,11 +69,10 @@ public class BoardAddHandler extends HttpServlet {
     b.setRegisteredDate(sdf.format(d));
     b.setBoardTypeNo(1);
 
-
     ///-----사진처리
     if(request.getPart("photo1").getSize()>0){
       partList.add(request.getPart("photo1")); // 사진값을 리스트에 순서대로 담아둠.
-      System.out.println("1111111111111"+request.getPart("photo1")); //출력테스트
+      //      System.out.println("1111111111111"+request.getPart("photo1")); //출력테스트
     }
     if(request.getPart("photo2").getSize()>0){
       partList.add(request.getPart("photo2"));
@@ -139,14 +108,6 @@ public class BoardAddHandler extends HttpServlet {
     Member loginUser = (Member) httpRequest.getSession().getAttribute("loginUser");
     b.setWriter(loginUser);
 
-    response.setContentType("text/html;charset=UTF-8");
-    PrintWriter out = response.getWriter();
-
-    out.println("<!DOCTYPE html>");
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<title>게시글 등록</title>");
-
     try {
       boardService.add(b);// 게시판 생성
       //        System.out.println("bno확인" + boardService.getBoardBno()); //1. 게시글을 등록하고
@@ -155,27 +116,14 @@ public class BoardAddHandler extends HttpServlet {
         Photos.get(i).setBno(p_bno); //2. 등록된 게시글의  bno값을 출력해서 넣어줌 사진bno값 넣어줌
         boardService.addWithPhoto(Photos.get(i));// 게시판 사진 등록 3. 사진bno값과 이름값 함께 insert 해줌
       }
-      out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>게시글 등록</h1>");
-      out.println("<p>게시글을 등록했습니다.</p>");
+      response.sendRedirect("list");
 
     } catch (Exception e) {
       StringWriter strWriter = new StringWriter();
       PrintWriter printWriter = new PrintWriter(strWriter);
       e.printStackTrace(printWriter);
 
-      out.println("</head>");
-      out.println("<body>");
-      out.println("<h1>게시글 등록오류</h1>");
-      out.printf("<pre>%s</pre>\n",strWriter.toString());
-      out.println("<p><a href='list'>목록</a></p>");
-
     }
-
-    out.println("</body>");
-    out.println("</html>");
   }
 }
 

@@ -1,7 +1,12 @@
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"
+    trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- 이위치x  <meta http-equiv='Refresh' content='1;url=list'> -->
 <title>새 게시글</title>
 </head>
 <body>
@@ -13,6 +18,7 @@
 사진2: <input type='file' name='photo2'><br>
 사진3: <input type='file' name='photo3'><br>
 <input type='submit' value='등록'>
+<p><a href='list'>목록</a></p>
 </form>
 </body>
 </html>
