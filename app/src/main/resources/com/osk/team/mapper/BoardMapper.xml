@@ -18,7 +18,7 @@
       <result column="writer_name" property="name"/>
     </association>
 
- <collection property="photos" ofType="photo">
+ <collection property="photos" ofType="BoardPhoto">
       <result column="bphoto" property="photo"/>
   </collection>
   
@@ -36,7 +36,7 @@
     values (#{title}, #{content}, #{viewCount}, #{registeredDate} ,#{writer.no}, #{boardTypeNo})
   </insert>
   
-  <insert id="insertphoto" parameterType="photo">
+  <insert id="insertphoto" parameterType="BoardPhoto">
     insert into b_photo(bphoto, bno )
     values (#{photo}, #{bno})
   </insert>

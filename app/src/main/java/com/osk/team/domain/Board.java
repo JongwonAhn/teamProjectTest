@@ -10,7 +10,7 @@ public class Board {
   private String title;//게시판 제목
   private String content;//게시판내용
   private String registeredDate;//작성일
-  private List<Photo> photos;//사진
+  private List<BoardPhoto> photos;//사진
 
 
   @Override
@@ -91,12 +91,12 @@ public class Board {
   }
 
 
-  public List<Photo> getPhotos() {
+  public List<BoardPhoto> getPhotos() {
     return photos;
   }
 
 
-  public void setPhotos(List<Photo> photos) {
+  public void setPhotos(List<BoardPhoto> photos) {
     this.photos = photos;
   }
 

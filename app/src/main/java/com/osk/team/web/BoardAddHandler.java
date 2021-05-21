@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
 
 import com.osk.team.domain.Board;
 import com.osk.team.domain.Member;
-import com.osk.team.domain.Photo;
+import com.osk.team.domain.BoardPhoto;
 import com.osk.team.service.BoardService;
 
 import net.coobird.thumbnailator.ThumbnailParameter;
@@ -35,7 +35,7 @@ public class BoardAddHandler extends HttpServlet {
 
   private String uploadDir;
   private List<Part> partList;          // 사진 리스트
-  private List<Photo> Photos;       // 사진 정보 리스트
+  private List<BoardPhoto> Photos;       // 사진 정보 리스트
   @Override
   public void init() throws ServletException {
     this.uploadDir = this.getServletContext().getRealPath("/upload");
@@ -55,7 +55,7 @@ public class BoardAddHandler extends HttpServlet {
 
     BoardService boardService = (BoardService) request.getServletContext().getAttribute("boardService");
     partList=new ArrayList<Part>(); // 초기화
-    Photos=new ArrayList<Photo>();
+    Photos=new ArrayList<BoardPhoto>();
     Board b = new Board();
 
     request.setCharacterEncoding("UTF-8");
@@ -83,7 +83,7 @@ public class BoardAddHandler extends HttpServlet {
 
     for(int i=0; i<partList.size(); i++) { // 리스트 수만큼 반복문 돌림
       if (partList.get(i).getSize() > 0) { // 해당 번째에 사이즈 있느냐 없느냐로, 사진이 들어갔나 체크
-        Photos.add(new Photo()); // 사진 정보를 생성해서 사진 정보 리스트에 순서대로 넣음
+        Photos.add(new BoardPhoto()); // 사진 정보를 생성해서 사진 정보 리스트에 순서대로 넣음
         // 파일을 선택해서 업로드 했다면,
         String filename = UUID.randomUUID().toString();
         partList.get(i).write(this.uploadDir + "/" + filename);

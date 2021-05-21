@@ -3,13 +3,13 @@ package com.osk.team.service;
 import java.util.List;
 
 import com.osk.team.domain.Board;
-import com.osk.team.domain.Photo;
+import com.osk.team.domain.BoardPhoto;
 
 public interface BoardService {
 
   int add(Board board) throws Exception;
 
-  int addWithPhoto(Photo photo) throws Exception;
+  int addWithPhoto(BoardPhoto photo) throws Exception;
 
   Board getBoardBno() throws Exception; // 오토 인크리먼츠값을 꺼내기 위해 만듬.
 
