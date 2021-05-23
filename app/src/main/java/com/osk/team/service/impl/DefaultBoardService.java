@@ -2,6 +2,7 @@ package com.osk.team.service.impl;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.osk.team.dao.BoardDao;
@@ -37,8 +38,8 @@ public class DefaultBoardService implements BoardService {
   }
 
   @Override
-  public List<Board> list() throws Exception {
-    return boardDao.findByKeyword(null);
+  public List<Board> list(HashMap<String,Object> map) throws Exception {
+    return boardDao.findByKeyword(map);
   }
 
   @Override
@@ -60,8 +61,8 @@ public class DefaultBoardService implements BoardService {
     return boardDao.delete(no);
   }
 
-  @Override
-  public List<Board> search(String keyword) throws Exception {
-    return boardDao.findByKeyword(keyword);
-  }
+  //  @Override
+  //  public List<Board> search(String keyword) throws Exception {
+  //    return boardDao.findByKeyword(keyword);
+  //  }
 }

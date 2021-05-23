@@ -1,5 +1,6 @@
 package com.osk.team.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.osk.team.domain.Board;
@@ -13,7 +14,7 @@ public interface BoardService {
 
   Board getBoardBno() throws Exception; // 오토 인크리먼츠값을 꺼내기 위해 만듬.
 
-  List<Board> list() throws Exception;
+  List<Board> list(HashMap<String,Object> map) throws Exception;
 
   Board get(int no) throws Exception;
 
@@ -21,5 +22,5 @@ public interface BoardService {
 
   int delete(int no) throws Exception;
 
-  List<Board> search(String keyword) throws Exception;
+  //  List<Board> search(String keyword) throws Exception;
 }

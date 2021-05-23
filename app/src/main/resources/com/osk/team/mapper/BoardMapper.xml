@@ -41,7 +41,7 @@
     values (#{photo}, #{bno})
   </insert>
 
-  <select id="findByKeyword" resultMap="boardMap" parameterType="string">
+  <select id="findByKeyword" resultMap="boardMap" parameterType="map">
     select
     b.bno,
     b.btitle,
@@ -54,14 +54,17 @@
     from board b
     inner join member m on m.mno=b.mno
     inner join b_type t on t.b_tno=b.b_tno
-
-    <if test="value != null">
-      where
-      b.btitle like concat('%', #{value},'%')
-      or b.bcontent like concat('%', #{value},'%')
-      or m.mname like concat('%', #{value},'%')
-    </if>
-
+     
+      where 1=1
+      <if test="keyword != null and keyword != ''"> 
+      or b.btitle like concat('%', #{keyword},'%')
+      or b.bcontent like concat('%', #{keyword},'%')
+      or m.mname like concat('%', #{keyword},'%')
+      </if>
+      <if test="boardtype != null and boardtype != ''">
+      and t.b_tno=#{boardtype}
+      </if>
+    
     order by b.bno desc
   </select>
 

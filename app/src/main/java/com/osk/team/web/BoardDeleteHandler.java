@@ -24,6 +24,7 @@ public class BoardDeleteHandler extends HttpServlet {
 
     BoardService boardService = (BoardService) request.getServletContext().getAttribute("boardService");
 
+
     try {
       int no = Integer.parseInt(request.getParameter("no"));
 
@@ -40,7 +41,12 @@ public class BoardDeleteHandler extends HttpServlet {
 
       boardService.delete(no);
 
-      response.sendRedirect("list");
+      System.out.println(request.getParameter("boardtype"));
+
+      request.setAttribute("boardtype",request.getParameter("boardtype"));
+      response.sendRedirect("list?boardtype=" + request.getParameter("boardtype"));
+
+
 
     } catch (Exception e) {
       StringWriter strWriter = new StringWriter();

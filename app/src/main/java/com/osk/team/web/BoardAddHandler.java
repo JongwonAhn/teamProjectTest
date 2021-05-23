@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.osk.team.domain.Board;
-import com.osk.team.domain.Member;
 import com.osk.team.domain.BoardPhoto;
+import com.osk.team.domain.Member;
 import com.osk.team.service.BoardService;
 
 import net.coobird.thumbnailator.ThumbnailParameter;
@@ -46,6 +46,7 @@ public class BoardAddHandler extends HttpServlet {
       throws ServletException, IOException {
 
     response.setContentType("text/html;charset=UTF-8");
+    request.setAttribute("boardtype",request.getParameter("boardtype"));
     request.getRequestDispatcher("/jsp/board/form.jsp").include(request, response);
   }
 
@@ -67,8 +68,12 @@ public class BoardAddHandler extends HttpServlet {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss"); // 날짜 포멧 형식 지정 및 생성
     //    System.out.println(sdf.format(d)); // 위에서 지정한 포멧 형식으로 날짜 출력
     b.setRegisteredDate(sdf.format(d));
-    b.setBoardTypeNo(1);
-
+    if(!"".equals(request.getParameter("boardtype"))) {
+      b.setBoardTypeNo(Integer.parseInt(request.getParameter("boardtype")));
+    }
+    else {
+      b.setBoardTypeNo(1);      
+    }
     ///-----사진처리
     if(request.getPart("photo1").getSize()>0){
       partList.add(request.getPart("photo1")); // 사진값을 리스트에 순서대로 담아둠.
@@ -116,7 +121,7 @@ public class BoardAddHandler extends HttpServlet {
         Photos.get(i).setBno(p_bno); //2. 등록된 게시글의  bno값을 출력해서 넣어줌 사진bno값 넣어줌
         boardService.addWithPhoto(Photos.get(i));// 게시판 사진 등록 3. 사진bno값과 이름값 함께 insert 해줌
       }
-      response.sendRedirect("list");
+      response.sendRedirect("list?boardtype=" + request.getParameter("boardtype"));
 
     } catch (Exception e) {
       StringWriter strWriter = new StringWriter();

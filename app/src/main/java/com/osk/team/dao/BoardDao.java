@@ -1,5 +1,6 @@
 package com.osk.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.osk.team.domain.Board;
@@ -14,7 +15,7 @@ public interface BoardDao {
 
   Board boardbno() throws Exception; // 오토 인크리먼츠값을 꺼내기 위해 만듬.
 
-  List<Board> findByKeyword(String keyword) throws Exception;
+  List<Board> findByKeyword(HashMap<String,Object> map) throws Exception;
 
   Board findByNo(int no) throws Exception;
 
