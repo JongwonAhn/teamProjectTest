@@ -36,9 +36,11 @@ public class BoardDetailHandler extends HttpServlet {
       //      System.out.println("2222222222");
       //      System.out.println("사진크기 확인 "+board.getPhotos().size());
       request.setAttribute("board", board);
+      request.setAttribute("boardtype",request.getParameter("boardtype"));
 
       response.setContentType("text/html;charset=UTF-8");
       request.getRequestDispatcher("/jsp/board/detail.jsp").include(request, response); //jsp때문에추가
+
 
     } catch (Exception e) {
       StringWriter strWriter = new StringWriter();

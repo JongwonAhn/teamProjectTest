@@ -43,7 +43,8 @@ public class BoardUpdateHandler extends HttpServlet {
       board.setContent(request.getParameter("content"));
       boardService.update(board);
 
-      response.sendRedirect("list");
+      //      response.sendRedirect("list");
+      response.sendRedirect("list?boardtype=" + request.getParameter("boardtype"));
 
     }catch (Exception e) {
       StringWriter strWriter = new StringWriter();

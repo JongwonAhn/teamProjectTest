@@ -24,6 +24,7 @@ public class BoardDeleteHandler extends HttpServlet {
 
     BoardService boardService = (BoardService) request.getServletContext().getAttribute("boardService");
 
+    request.setAttribute("boardtype",request.getParameter("boardtype"));
 
     try {
       int no = Integer.parseInt(request.getParameter("no"));
@@ -39,11 +40,12 @@ public class BoardDeleteHandler extends HttpServlet {
         throw new Exception("삭제 권한이 없습니다!");
       }
 
-      boardService.delete(no);
-
+      request.setAttribute("boardtype",request.getParameter("boardtype"));
       System.out.println(request.getParameter("boardtype"));
 
-      request.setAttribute("boardtype",request.getParameter("boardtype"));
+      boardService.delete(no);
+
+
       response.sendRedirect("list?boardtype=" + request.getParameter("boardtype"));
 
 
